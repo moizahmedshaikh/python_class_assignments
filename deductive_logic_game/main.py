@@ -4,18 +4,16 @@ Write a Python program that implements a deductive logic game where the player m
 
 import random
 
-random_number = str(random.randrange(100,999))
-
-def get_feedback(guess):
+def get_feedback(guess,secret_number):
     feedback_imojis = []
     feedback_message = []
 
     for i in range(3):
-        if guess[i] == random_number[i]:
+        if guess[i] == secret_number[i]:
             feedback_imojis.append("👌")
             feedback_message.append("Correct")
             
-        elif guess[i] in random_number:
+        elif guess[i] in secret_number:
             feedback_imojis.append("👍")
             feedback_message.append("Ok")
 
@@ -28,8 +26,9 @@ def get_feedback(guess):
 
 def main():
     attempts = 10
-    
     while attempts > 0:
+        
+        random_number = str(random.randrange(100,999))
         guess = input("Guess a 3-digit number: ")
 
         if len(guess) != 3 or not guess.isdigit():
@@ -41,7 +40,7 @@ def main():
             break
 
         else: 
-            feedback_imojis, feedback_message  = get_feedback(guess)
+            feedback_imojis, feedback_message  = get_feedback(guess,random_number)
             print(" ".join(feedback_imojis) , "or" , " ".join(feedback_message))
 
         attempts -= 1
